@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Q Chan - QR Code Generator</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,20 +21,46 @@
         </style>
     </head>
     <body class="antialiased">
-        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-            @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                    @auth
-                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
+        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                <h1>Q-chan <small>- QR code generator</small></h1>
+                
+            </div>
+            
+            @section('content')
+            <table>
+                <tr>
+                    <td style="vertical-align: top;">
+                        <form action="{{ url('/qrcode-generator') }}" method="GET" class="form-horizontal">
+
+                            <!-- Text field -->
+                            <div class="form-group">
+                                <label for="text">Text to generate:</label>
+
+                                <span class>
+                                    <input type="text" id="text" name="text" class="form-control">
+                                </span>
+                            </div>
+
+                            <!-- Toogle Button -->
+                            <div class="form-group">
+                                <div>
+                                    <button type="submit" class="btn btn-default">Q-chan, please draw me a QR code.</button>
+                                </div>
+                            </div>
+                        </form>
+
+                        @if ((Request::get('text')) != NULL)
+                            {{ QrCode::size(500)->generate(Request::get('text')) }}
                         @endif
-                    @endauth
-                </div>
-            @endif
+                    </td>
+
+                    <td>
+                        <img src="img\qchan.png" alt="Q-chan" height="500" style="vertical-align:bottom">
+                    </td>
+                </tr>
+            </div>
         </div>
     </body>
 </html>
