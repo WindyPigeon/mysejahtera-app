@@ -64,12 +64,26 @@ Route::post('/reset-password', function (Request $request) {
                 : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
+Route::get('/users/{user}/dashboard', function () {
+    return view('dashboard');
+})->name('dashboard');
 
-
-Route::get('/profile', function () {
+Route::get('/users/{user}/profile', function () {
     // Only authenticated users may access this route...
 })->middleware('auth.basic');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+Route::get('/users/{user}/qrcodegenerator', function () {
+    return view('qrcodegenerator');
+})->middleware('auth.basic');
+
+Route::get('/qrcodegenerator', function () {
+    return view('qrcodegenerator');
+});
+
+Route::get('/users/{user}/qrcodescanner', function () {
+    return view('qrcodescanner');
+})->middleware('auth.basic');
+
+Route::get('/qrcodescanner', function () {
+    return view('qrcodescanner');
+});

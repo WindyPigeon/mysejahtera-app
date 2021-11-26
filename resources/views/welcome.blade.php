@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>MySejahtera</title>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -35,6 +35,37 @@
                     @endauth
                 </div>
             @endif
+            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <img src="/img/qr-code-mysejahtera-app.herokuapp.com.svg" class="w-8 h-8 text-gray-500">
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcodegenerator') }}" class="underline text-gray-900 dark:text-white">QR Code Generator</a></div>
+                            </div>
+
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    Generate QR Code
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <img src="/img/qr-code-mysejahtera-app.herokuapp.com.svg" class="w-8 h-8 text-gray-500">
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcodescanner') }}" class="underline text-gray-900 dark:text-white">QR Code Scanner</a></div>
+                            </div>
+
+                            <div class="ml-12">
+                                <div class="mt-2 text-gray-600 dark:text-gray-400 text-sm">
+                                    Open Camera to Scan QR Code
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
