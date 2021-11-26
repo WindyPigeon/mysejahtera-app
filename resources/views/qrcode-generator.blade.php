@@ -21,45 +21,78 @@
         </style>
     </head>
     <body class="antialiased">
+        <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
+            @if (Route::has('login'))
+                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
+                    @auth
+                        <a href="{{ url('/home') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Home</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-        <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
-            <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
-                <h1>Q-chan <small>- QR code generator</small></h1>
-                
-            </div>
-            
-            @section('content')
-            <table>
-                <tr>
-                    <td style="vertical-align: top;">
-                        <form action="{{ url('/qrcode-generator') }}" method="GET" class="form-horizontal">
-
-                            <!-- Text field -->
-                            <div class="form-group">
-                                <label for="text">Text to generate:</label>
-
-                                <span class>
-                                    <input type="text" id="text" name="text" class="form-control">
-                                </span>
-                            </div>
-
-                            <!-- Toogle Button -->
-                            <div class="form-group">
-                                <div>
-                                    <button type="submit" class="btn btn-default">Q-chan, please draw me a QR code.</button>
-                                </div>
-                            </div>
-                        </form>
-
-                        @if ((Request::get('text')) != NULL)
-                            {{ QrCode::size(500)->generate(Request::get('text')) }}
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
                         @endif
-                    </td>
+                    @endauth
+                </div>
+            @endif
 
-                    <td>
-                        <img src="img\qchan.png" alt="Q-chan" height="500" style="vertical-align:bottom">
-                    </td>
-                </tr>
+            <div class="max-w-6xl mx-auto sm:px-6 lg:px-8">
+                <div class="flex justify-center pt-8 sm:justify-start sm:pt-0">
+                    <div class="h-16 w-auto text-gray-700 sm:h-20">
+                        <h1>Q-chan <small>- QR code generator</small></h1>
+                    </div>
+                </div>
+
+                <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
+                    <div class="grid grid-cols-1 md:grid-cols-2">
+                        <div>
+                            <form action="{{ url('/qrcodegenerator') }}" method="GET" class="form-horizontal">
+                                @csrf
+
+                                <!-- Text field -->
+                                <div class="form-group grid md:grid-cols-2 max-w-6xl">
+                                    <div class="mt-2">
+                                        <label for="text">Text to generate:</label>
+                                    </div>
+
+                                    <div class="mt-2">
+                                        <input type="text" id="text" name="text" class="form-control" placeholder="https://example.com">
+                                    </div>
+                                </div>
+
+                                <!--  Toogle Button -->
+                                <div class="form-group p-6">
+                                    <button type="submit" class="button-primary">Q-chan, please draw me a QR code.</button>
+                                </div>
+
+                                @if ((Request::get('text')) != NULL)
+                                <img src="
+                                <?php
+                                    include 'phpqrcode/qrlib.php';
+
+                                    // we need to be sure ours script does not output anything!!!
+                                    // otherwise it will break up PNG binary!
+                                    ob_start();
+
+                                    // generating
+                                    QRcode::png(Request::get('text'), false, QR_ECLEVEL_L, 10, 4);
+
+                                    $imageString = base64_encode( ob_get_contents() );
+
+                                    ob_end_clean();
+
+                                    // displaying
+                                    echo 'data:image/png;base64,'.$imageString;
+                                ?>" class="" width="">
+                                @endif
+                            </form>
+                        </div>
+
+                        <div class="flex items-center">
+                            <img src="img\qchan.png" alt="Q-chan" width="auto" height="500">
+                        <div>
+                    </tr>
+                </div>
             </div>
         </div>
     </body>
