@@ -41,7 +41,7 @@
                         <div class="p-6">
                             <div class="flex items-center">
                                 <img src="/img/qr-code-mysejahtera-app.herokuapp.com.svg" class="w-8 h-8 text-gray-500">
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcodegenerator') }}" class="underline text-gray-900 dark:text-white">QR Code Generator</a></div>
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcode-generator') }}" class="underline text-gray-900 dark:text-white">QR Code Generator</a></div>
                             </div>
 
                             <div class="ml-12">
@@ -54,7 +54,7 @@
                         <div class="p-6">
                             <div class="flex items-center">
                                 <img src="/img/qr-code-mysejahtera-app.herokuapp.com.svg" class="w-8 h-8 text-gray-500">
-                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcodescanner') }}" class="underline text-gray-900 dark:text-white">QR Code Scanner</a></div>
+                                <div class="ml-4 text-lg leading-7 font-semibold"><a href="{{ url('/qrcode-scanner') }}" class="underline text-gray-900 dark:text-white">QR Code Scanner</a></div>
                             </div>
 
                             <div class="ml-12">

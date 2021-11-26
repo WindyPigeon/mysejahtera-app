@@ -46,7 +46,7 @@
                 <div class="mt-8 bg-white dark:bg-gray-800 overflow-hidden shadow sm:rounded-lg">
                     <div class="grid grid-cols-1 md:grid-cols-2">
                         <div>
-                            <form action="{{ url('/qrcodegenerator') }}" method="GET" class="form-horizontal">
+                            <form action="{{ url('/qrcode-generator') }}" method="GET" class="form-horizontal">
                                 @csrf
 
                                 <!-- Text field -->
