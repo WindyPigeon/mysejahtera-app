@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\LoginController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,17 +19,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-})->name('login');
+Route::get('/register', [RegisterController::class, 'create'])
+                ->middleware('guest')
+                ->name('register');
 
-Route::post('/login', [LoginController::class, 'authenticate']);
+Route::post('/register', [RegisterController::class, 'store'])
+                ->middleware('guest');
 
-Route::get('/register', function () {
-    return view('auth.register');
-})->name('register');
+Route::get('/login', [LoginController::class, 'create'])
+                ->middleware('guest')
+                ->name('login');
 
-Route::post('/register', [RegisterController::class, 'store']);
+Route::post('/login', [LoginController::class, 'authenticate'])
+                ->middleware('guest');
+
+
+Route::post('/logout', [LoginController::class, 'destroy'])
+                ->middleware('auth')
+                ->name('logout');
 
 Route::get('/forgot-password', function () {
     return view('auth.forgot-password');
@@ -64,7 +71,7 @@ Route::post('/reset-password', function (Request $request) {
                 : back()->withErrors(['email' => [__($status)]]);
 })->middleware('guest')->name('password.update');
 
-Route::get('/users/{user}/dashboard', function () {
+Route::get('dashboard', function () {
     return view('dashboard');
 })->name('dashboard');
 
